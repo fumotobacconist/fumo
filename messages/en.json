@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "search": "Search",
+    "main": "Main",
+    "searchProducts": "Search products",
+    "language": "Language"
+  },
+  "shop": {
+    "all": "All",
+    "shopAll": "Shop all",
+    "newArrivals": "New arrivals",
+    "bestsellers": "Bestsellers",
+    "brands": "Brands",
+    "brand": "Brand",
+    "category": "Category",
+    "categories": "Categories",
+    "products": "{count, plural, one {# product} other {# products}}",
+    "brandCount": "{count, plural, one {# brand} other {# brands}}",
+    "nothingHere": "Nothing here yet",
+    "comingSoon": "New products are on their way.",
+    "noBrands": "No brands yet",
+    "viewAll": "View all",
+    "allOf": "All {name}",
+    "status": "Status",
+    "loadMore": "Load more"
+  },
+  "search": {
+    "title": "Search",
+    "results": "{count, plural, one {# result} other {# results}}",
+    "hint": "Type in the menu search to find a product.",
+    "noMatches": "No matches",
+    "tryFlavour": "Try a flavour, like “mint” or “berry”.",
+    "seeAll": "See all {count, plural, one {# result} other {# results}}",
+    "noSuggestions": "No matches yet — try another word."
+  },
+  "product": {
+    "home": "Home",
+    "shop": "Shop",
+    "brand": "Brand",
+    "flavour": "Flavour",
+    "weight": "Weight",
+    "strength": "Strength",
+    "category": "Category",
+    "unavailable": "Currently unavailable",
+    "related": "You may also like",
+    "size": "Size",
+    "nicotine": "Nicotine"
+  },
+  "store": {
+    "address": "Address",
+    "hours": "Hours",
+    "phone": "Phone",
+    "directions": "Get directions",
+    "map": "Map: {name}"
+  },
+  "page": {
+    "draft": "Draft preview — only you can see this page. Publish it in Admin → Pages."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The page you’re looking for doesn’t exist or has moved.",
+    "back": "Back to the shop"
+  }
+}
