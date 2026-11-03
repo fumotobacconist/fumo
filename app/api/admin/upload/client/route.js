@@ -1,12 +1,17 @@
 import { NextResponse } from 'next/server';
 import { handleUpload } from '@vercel/blob/client';
 import { TYPES, blobToken } from '@/lib/storage';
+import { isAdmin } from '@/lib/api';
 
 // Issues short-lived tokens so the admin browser uploads large files (videos) straight to Blob.
-// Protected by middleware like every /api/admin route.
+// Only a logged-in admin gets a token; Blob's "upload completed" callback carries no cookie and
+// is verified by handleUpload's signature check instead.
 export async function POST(req) {
   try {
     const body = await req.json();
+    if (body?.type !== 'blob.upload-completed' && !(await isAdmin(req))) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const result = await handleUpload({
       request: req,
       body,

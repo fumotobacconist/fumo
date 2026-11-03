@@ -14,5 +14,18 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 2678400, // 31 days — uploaded files never change (new upload = new address)
   },
+  // Basic hardening: HTTPS only, no framing by other sites (protects the admin from clickjacking),
+  // no MIME sniffing.
+  async headers() {
+    return [{
+      source: '/:path*',
+      headers: [
+        { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains' },
+        { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+        { key: 'X-Content-Type-Options', value: 'nosniff' },
+        { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+      ],
+    }];
+  },
 };
 export default withNextIntl(nextConfig);

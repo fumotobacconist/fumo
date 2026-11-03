@@ -24,4 +24,5 @@ export async function middleware(req) {
 }
 
 // Everything except Next internals, static files, the iPhone icon, buy-link redirects and uploaded media.
-export const config = { matcher: ['/((?!_next|_vercel|apple-icon|go/|media/|.*\\..*).*)'] };
+// Admin paths are listed separately so a dot in the address (/api/admin/products/1.0) can't skip the guard.
+export const config = { matcher: ['/((?!_next|_vercel|apple-icon|go/|media/|.*\\..*).*)', '/admin/:path*', '/api/admin/:path*'] };
