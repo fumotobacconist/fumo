@@ -25,10 +25,33 @@ export async function api(path, method = 'GET', body) {
   return data;
 }
 
+// Photos are served as uploaded (no paid image optimisation), so shrink them here first:
+// longest side at most 1800px, saved as WebP (keeps transparency). Kept only if it's smaller.
+const SHRINKABLE = /^image\/(jpeg|png|webp)$/;
+const MAX_SIDE = 1800;
+export async function shrinkImage(file) {
+  if (!SHRINKABLE.test(file.type)) return file;
+  try {
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, MAX_SIDE / Math.max(bmp.width, bmp.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bmp.width * scale);
+    canvas.height = Math.round(bmp.height * scale);
+    canvas.getContext('2d').drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    bmp.close();
+    const out = await new Promise((res) => canvas.toBlob(res, 'image/webp', 0.82));
+    if (!out || out.type !== 'image/webp' || out.size >= file.size) return file;
+    return new File([out], file.name.replace(/\.[^.]+$/, '') + '.webp', { type: 'image/webp' });
+  } catch {
+    return file;
+  }
+}
+
 let uploadMode;
 // Large files go straight from the browser to Blob when a read-write token is configured;
 // otherwise they go through the server (4 MB cap on Vercel).
 export async function uploadFile(file, onProgress) {
+  file = await shrinkImage(file);
   uploadMode ??= await api('upload').catch(() => ({ client: false }));
   if (uploadMode.client) {
     const { upload } = await import('@vercel/blob/client');

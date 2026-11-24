@@ -9,7 +9,9 @@ const nextConfig = {
   outputFileTracingRoot: path.dirname(fileURLToPath(import.meta.url)),
   serverExternalPackages: ['@electric-sql/pglite'],
   images: {
-    // Product photos live in Vercel Blob; Next.js resizes them per device and caches the result.
+    // Served as-is: Vercel's image optimisation has a small free monthly allowance, and once it
+    // runs out images stop loading (402). Uploads are shrunk in the admin instead (shrinkImage).
+    unoptimized: true,
     remotePatterns: [{ protocol: 'https', hostname: '**.public.blob.vercel-storage.com' }],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 2678400, // 31 days — uploaded files never change (new upload = new address)

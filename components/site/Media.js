@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { isVideo } from '@/lib/site';
 
-// Photos with a `sizes` hint are resized and converted (WebP/AVIF) by Next.js for the space they
-// fill — a 400px tile no longer downloads a 4 MB original. GIFs/SVGs and videos are served as-is.
+// Photos with a `sizes` hint use next/image for layout and loading priority; files are served as
+// uploaded (images.unoptimized), already shrunk by the admin. GIFs/SVGs and videos are plain tags.
 const OPTIMIZABLE = /\.(jpe?g|png|webp|avif)(\?|$)/i;
 
 export const SIZES = {
